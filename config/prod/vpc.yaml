@@ -1,0 +1,6 @@
+template_path: vpc.yaml
+
+parameters:
+  CidrBlock: 10.128.16.0/20
+  StackName: vpc
+  Environment: {{ env }}

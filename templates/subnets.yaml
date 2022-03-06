@@ -1,0 +1,287 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Subnets Provisioning"
+Parameters:
+  VPCStackName:
+    Type: String
+    Description: The full stack name for the environment specific VPC
+  PubCidrBlockA:
+    Type: String
+    Description: A CIDR block for AZ a
+    MinLength: "9"
+    MaxLength: "18"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  PubCidrBlockB:
+    Type: String
+    Description: A CIDR block for AZ b
+    MinLength: "9"
+    MaxLength: "18"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  PubCidrBlockC:
+    Type: String
+    Description: A CIDR block for AZ c
+    MinLength: "9"
+    MaxLength: "18"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  PrivCidrBlockA:
+    Type: String
+    Description: A CIDR block for AZ a
+    MinLength: "9"
+    MaxLength: "18"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  PrivCidrBlockB:
+    Type: String
+    Description: A CIDR block for AZ b
+    MinLength: "9"
+    MaxLength: "18"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  PrivCidrBlockC:
+    Type: String
+    Description: A CIDR block for AZ c
+    MinLength: "9"
+    MaxLength: "18"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+
+Resources:
+  PublicSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCStackName
+      CidrBlock: !Ref PubCidrBlockA
+      AvailabilityZone: !Join
+        - ""
+        - - !Ref "AWS::Region"
+          - "a"
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ""
+            - - !Ref "AWS::StackName"
+              - "-public-a"
+
+  PublicSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCStackName
+      CidrBlock: !Ref PubCidrBlockB
+      AvailabilityZone: !Join
+        - ""
+        - - !Ref "AWS::Region"
+          - "b"
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ""
+            - - !Ref "AWS::StackName"
+              - "-public-b"
+
+  PublicSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCStackName
+      CidrBlock: !Ref PubCidrBlockC
+      AvailabilityZone: !Join
+        - ""
+        - - !Ref "AWS::Region"
+          - "c"
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ""
+            - - !Ref "AWS::StackName"
+              - "-public-c"
+
+  PrivateSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCStackName
+      CidrBlock: !Ref PrivCidrBlockA
+      AvailabilityZone: !Join
+        - ""
+        - - !Ref "AWS::Region"
+          - "a"
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ""
+            - - !Ref "AWS::StackName"
+              - "-private-a"
+
+  PrivateSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCStackName
+      CidrBlock: !Ref PrivCidrBlockB
+      AvailabilityZone: !Join
+        - ""
+        - - !Ref "AWS::Region"
+          - "b"
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ""
+            - - !Ref "AWS::StackName"
+              - "-private-b"
+
+  PrivateSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPCStackName
+      CidrBlock: !Ref PrivCidrBlockC
+      AvailabilityZone: !Join
+        - ""
+        - - !Ref "AWS::Region"
+          - "c"
+      Tags:
+        - Key: Name
+          Value: !Join
+            - ""
+            - - !Ref "AWS::StackName"
+              - "-private-c"
+
+#  IGW:
+#    Type: "AWS::EC2::InternetGateway"
+#    Properties:
+#      Tags:
+#        - Key: Name
+#          Value: !Join
+#            - ""
+#            - - !Ref "AWS::StackName"
+#              - "-igw"
+
+#  AttachInternetGateway:
+#    Type: "AWS::EC2::VPCGatewayAttachment"
+#    Properties:
+#      VpcId: !Ref VPCStackName
+#      InternetGatewayId: !Ref IGW
+#
+#  NatEip:
+#    Type: "AWS::EC2::EIP"
+#    Properties:
+#      Domain: vpc
+#
+#  NatGw:
+#    DependsOn: AttachInternetGateway
+#    Type: "AWS::EC2::NatGateway"
+#    Properties:
+#      AllocationId:
+#        Fn::GetAtt:
+#          - NatEip
+#          - AllocationId
+#      SubnetId: !Ref PublicSubnetA
+#      Tags:
+#        - Key: Name
+#          Value: !Join
+#            - ""
+#            - - !Ref "AWS::StackName"
+#              - "-natgw"
+#
+#  PublicRouteTable:
+#    Type: "AWS::EC2::RouteTable"
+#    DependsOn: AttachInternetGateway
+#    Properties:
+#      VpcId: !Ref VPCStackName
+#      Tags:
+#        - Key: Name
+#          Value: !Join
+#            - ""
+#            - - !Ref "AWS::StackName"
+#              - "-public-rtb"
+#
+#  PrivateRouteTable:
+#    Type: "AWS::EC2::RouteTable"
+#    DependsOn: NatGw
+#    Properties:
+#      VpcId: !Ref VPCStackName
+#      Tags:
+#        - Key: Name
+#          Value: !Join
+#            - ""
+#            - - !Ref "AWS::StackName"
+#              - "-private-rtb"
+#
+#  PublicDefaultRoute:
+#    Type: "AWS::EC2::Route"
+#    Properties:
+#      DestinationCidrBlock: "0.0.0.0/0"
+#      GatewayId: !Ref IGW
+#      RouteTableId: !Ref PublicRouteTable
+#
+#  PrivateDefaultRoute:
+#    Type: "AWS::EC2::Route"
+#    Properties:
+#      DestinationCidrBlock: "0.0.0.0/0"
+#      NatGatewayId: !Ref NatGw
+#      RouteTableId: !Ref PrivateRouteTable
+#
+#  PublicSubnetRouteTableAssociationA:
+#    Type: "AWS::EC2::SubnetRouteTableAssociation"
+#    Properties:
+#      SubnetId: !Ref PublicSubnetA
+#      RouteTableId: !Ref PublicRouteTable
+#
+#  PublicSubnetRouteTableAssociationB:
+#    Type: "AWS::EC2::SubnetRouteTableAssociation"
+#    Properties:
+#      SubnetId: !Ref PublicSubnetB
+#      RouteTableId: !Ref PublicRouteTable
+#
+#  PublicSubnetRouteTableAssociationC:
+#    Type: "AWS::EC2::SubnetRouteTableAssociation"
+#    Properties:
+#      SubnetId: !Ref PublicSubnetC
+#      RouteTableId: !Ref PublicRouteTable
+#
+#  PrivateSubnetRouteTableAssociationA:
+#    Type: "AWS::EC2::SubnetRouteTableAssociation"
+#    Properties:
+#      SubnetId: !Ref PrivateSubnetA
+#      RouteTableId: !Ref PrivateRouteTable
+#
+#  PrivateSubnetRouteTableAssociationB:
+#    Type: "AWS::EC2::SubnetRouteTableAssociation"
+#    Properties:
+#      SubnetId: !Ref PrivateSubnetB
+#      RouteTableId: !Ref PrivateRouteTable
+#
+#  PrivateSubnetRouteTableAssociationC:
+#    Type: "AWS::EC2::SubnetRouteTableAssociation"
+#    Properties:
+#      SubnetId: !Ref PrivateSubnetC
+#      RouteTableId: !Ref PrivateRouteTable
+
+Outputs:
+  PublicSubnetA:
+    Value: !Ref PublicSubnetA
+    Export:
+      Name: !Sub ${AWS::StackName}-public-subnet-a-id
+  PublicSubnetB:
+    Value: !Ref PublicSubnetB
+    Export:
+      Name: !Sub ${AWS::StackName}-public-subnet-b-id
+  PublicSubnetC:
+    Value: !Ref PublicSubnetC
+    Export:
+      Name: !Sub ${AWS::StackName}-public-subnet-c-id
+  PrivateSubnetA:
+    Value: !Ref PrivateSubnetA
+    Export:
+      Name: !Sub ${AWS::StackName}-private-subnet-a-id
+  PrivateSubnetB:
+    Value: !Ref PrivateSubnetB
+    Export:
+      Name: !Sub ${AWS::StackName}-private-subnet-b-id
+  PrivateSubnetC:
+    Value: !Ref PrivateSubnetC
+    Export:
+      Name: !Sub ${AWS::StackName}-private-subnet-c-id
+#  PrivateRouteTable:
+#    Value: !Ref PrivateRouteTable
+#    Export:
+#      Name: !Sub ${AWS::StackName}-private-route-table-id

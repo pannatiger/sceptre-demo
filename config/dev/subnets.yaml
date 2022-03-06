@@ -1,0 +1,10 @@
+template_path: subnets.yaml
+
+parameters:
+  VPCStackName: !stack_output {{ env }}/vpc.yaml::VPC
+  PubCidrBlockA: 10.0.0.0/24
+  PubCidrBlockB: 10.0.1.0/24
+  PubCidrBlockC: 10.0.3.0/24
+  PrivCidrBlockA: 10.0.4.0/22
+  PrivCidrBlockB: 10.0.8.0/22
+  PrivCidrBlockC: 10.0.12.0/22
