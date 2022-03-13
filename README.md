@@ -1,1 +1,1 @@
-# sceptre-demo
+# sceptre-demo.
