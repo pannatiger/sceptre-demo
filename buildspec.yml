@@ -1,0 +1,42 @@
+---
+version: 0.2
+
+#env:
+#  shell: shell-tag
+#  variables:
+#    key: "value"
+#    key: "value"
+#  parameter-store:
+#    key: "value"
+#    key: "value"
+#  exported-variables:
+#    - variable
+#    - variable
+#  secrets-manager:
+#    key: secret-id:json-key:version-stage:version-id
+#  git-credential-helper: no | yes
+
+#proxy:
+#  upload-artifacts: no | yes
+#  logs: no | yes
+#
+#batch:
+#  fast-fail: false | true
+#  # build-list:
+#  # build-matrix:
+#  # build-graph:
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Installing Sceptre
+      - pip install -r $CODEBUILD_SRC_DIR/requirements.txt
+  build:
+    commands:
+      - echo Updating stacks
+      - sceptre launch -y dev
+      - sceptre launch -y prod
+    finally:
+      - echo Stacks got updated successfully
