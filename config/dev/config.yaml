@@ -1,4 +1,4 @@
 project_code: firstblox-sceptre-demo
-iam_role: arn:aws:iam::720609190984:role/cloudformation-role
+iam_role: arn:aws:iam::720609190984:role/cloudformation-role1
 region: eu-west-1
 env: dev
