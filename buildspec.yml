@@ -19,7 +19,7 @@ version: 0.2
 #batch:
 #  fast-fail: false | true
 #  # build-list::
-#  # build-matrix::  $#$
+#  # build-matrix::  $
 #  # build-graph::
 
 phases:
