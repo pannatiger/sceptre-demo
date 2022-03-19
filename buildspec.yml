@@ -16,10 +16,6 @@ version: 0.2
 #    key: secret-id:json-key:version-stage:version-id
 #  git-credential-helper: no | yes
 
-#proxy:
-#  upload-artifacts: no | yes
-#  logs: no | yes
-#
 #batch:
 #  fast-fail: false | true
 #  # build-list:
