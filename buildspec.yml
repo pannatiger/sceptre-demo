@@ -31,6 +31,8 @@ phases:
       - pip install -r $CODEBUILD_SRC_DIR/requirements.txt
   build:
     commands:
+      - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
+      - git log -1 HEAD
       - echo Updating stacks
       - sceptre launch -y dev
       - sceptre launch -y prod
