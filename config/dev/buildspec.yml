@@ -14,6 +14,5 @@ phases:
       - git log -1 HEAD --raw
       - echo Updating stacks
       - sceptre launch -y dev
-      - sceptre launch -y prod
     finally:
       - echo Stacks got updated successfully
