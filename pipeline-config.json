@@ -1,0 +1,16 @@
+[
+  {
+    "GitHubRepo": "sceptre-demo",
+    "GitHubBranch": "master",
+    "ChangeMatchExpressions": ["config/dev/.*", "templates/*"],
+    "IgnoreFiles": "*.pdf;*.md",
+    "CodePipelineName": "CodePipeline-Dev"
+  },
+  {
+    "GitHubRepo": "sceptre-demo",
+    "GitHubBranch": "master",
+    "ChangeMatchExpressions": ["config/prod/.*", "templates/*"],
+    "IgnoreFiles": "*.pdf;*.md",
+    "CodePipelineName": "CodePipeline-Prod"
+  }
+]
