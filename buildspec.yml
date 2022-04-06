@@ -11,7 +11,6 @@ phases:
   build:
     commands:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
-      - git log -1 HEAD --raw
       - echo Updating stacks
       - sceptre launch -y dev
       - sceptre launch -y prod
