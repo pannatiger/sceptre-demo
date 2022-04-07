@@ -18,6 +18,6 @@ phases:
       - echo Creating a change set
       - ChnagesetName=$(uuidgen)
       - echo changeset name $ChnagesetName
-      - sceptre create dev $ChnagesetName
+      - sceptre create dev $ChnagesetName -y
     finally:
       - echo Change Set Created successfully
