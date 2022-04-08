@@ -3,7 +3,7 @@ version: 0.2
 
 env:
   exported-variables:
-    - ChnagesetName
+    - ChangesetName
 
 phases:
   install:
@@ -16,8 +16,8 @@ phases:
     commands:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
       - echo Creating a change set
-      - ChnagesetName='c'$(uuidgen)
-      - echo changeset name $ChnagesetName
-      - sceptre create dev $ChnagesetName -y
+      - ChangesetName='c'$(uuidgen)
+      - echo changeset name $ChangesetName
+      - sceptre create dev $ChangesetName -y
     finally:
       - echo Change Set Created successfully
