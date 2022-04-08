@@ -16,7 +16,7 @@ phases:
     commands:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
       - echo Creating a change set
-      - ChnagesetName=$(uuidgen)
+      - ChnagesetName='c'$(uuidgen)
       - echo changeset name $ChnagesetName
       - sceptre create dev $ChnagesetName -y
     finally:
